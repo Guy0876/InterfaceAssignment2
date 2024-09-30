@@ -30,6 +30,13 @@ public class Jeep implements LandVehicle {
 	public void setNumOfWheels(int numOfWheels) {
 		this.numOfWheels = numOfWheels;
 	}
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
 
 	public int getMaxPassengers() {
 		return passengers;

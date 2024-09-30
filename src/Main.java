@@ -68,5 +68,22 @@ public class Main {
     {
         //TODO
     }
+    public static double getTravelTime(VehicleInSpace[] vehicles, int source_x,
+                                       int source_y, int dest_x, int dest_y, int passengers, boolean land)
+    {
+        int indexOfMinTime = 0;
+        double minTime =
+        if (land)
+        {
+            for (int i = 1; i < vehicles.length; i++) {
+                if(vehicles[i] instanceof Hovercraft || vehicles[i] instanceof Jeep)
+                {
+
+                }
+            }
+        }
+        return 0.0;
+    }
+
 
 }
