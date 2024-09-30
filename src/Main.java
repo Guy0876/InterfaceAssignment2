@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 public class Main {
 
     public static void main(String [] args)
@@ -71,18 +74,50 @@ public class Main {
     public static double getTravelTime(VehicleInSpace[] vehicles, int source_x,
                                        int source_y, int dest_x, int dest_y, int passengers, boolean land)
     {
-        int indexOfMinTime = 0;
-        double minTime =
-        if (land)
-        {
-            for (int i = 1; i < vehicles.length; i++) {
-                if(vehicles[i] instanceof Hovercraft || vehicles[i] instanceof Jeep)
+        int x, y;
+        double speed, minTimeLand = 1.7976931348623157E308, minTimeSea = 1.7976931348623157E308, dis = sqrt(pow(dest_y - source_y, 2) + pow(dest_x - source_x, 2)), time = 0;
+        for (int i = 0; i < vehicles.length; i++) {
+            if(vehicles[i] instanceof Hovercraft)
+            {
+                Hovercraft hovercraft = (Hovercraft) vehicles[i];
+                x = hovercraft.getX();
+                y = hovercraft.getY();
+                speed = hovercraft.getMaxSpeed();
+                time = sqrt(pow(dest_y - y, 2) + pow(dest_x - x, 2)) / speed + dis / speed;
+                if(time < minTimeSea)
                 {
-
+                    minTimeSea = time;
+                }
+                if(time < minTimeLand)
+                {
+                    minTimeLand = time;
                 }
             }
+            else if ( vehicles[i] instanceof Jeep) {
+                Jeep jeep = (Jeep) vehicles[i];
+                x = jeep.getX();
+                y = jeep.getY();
+                speed = jeep.getMaxSpeed();
+                time = sqrt(pow(dest_y - y, 2) + pow(dest_x - x, 2)) / speed + dis / speed;
+                if(time < minTimeLand)
+                {
+                    minTimeLand = time;
+                }
+            }
+            else {
+                Boat boat = (Boat) vehicles[i];
+                x = boat.getX();
+                y = boat.getY();
+                speed = boat.getMaxSpeed();
+                time = sqrt(pow(dest_y - y, 2) + pow(dest_x - x, 2)) / speed + dis / speed;
+                if(time < minTimeSea)
+                {
+                    minTimeSea = time;
+                }
+            }
+
         }
-        return 0.0;
+        return land ? minTimeLand : minTimeSea;
     }
 
 
